@@ -162,6 +162,13 @@ body {
     box-sizing: border-box;
     font-size: 16px;
   }
+  .displaymessage {
+    color: red;
+    text-align: center;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: larger;
+} 
 
   .buttonParent{
     display: flex;

@@ -2,6 +2,7 @@ import '../home/Home.scss'
 import { Link } from 'react-router-dom'
 import logo from '../../assets/images/logo.png';
 import add from '../../assets/add-24px.svg'
+import Display from '../display/Display';
 const Home = (props) => {
     return (
         <div>
@@ -23,7 +24,7 @@ const Home = (props) => {
                     <Link to="/" className="add-button flex-row-center"><img src={add} alt="" />Add Person</Link>
                 </div>
                 <div class="table-main">
-                    <table id="table-display" class="table"></table>
+                    <Display />
                 </div>
             </div>
         </div>

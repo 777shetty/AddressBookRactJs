@@ -4,11 +4,8 @@ import { useState } from "react";
 import logo from '../../assets/images/logo.png';
 import cross from '../../assets/images/cancel.png'
 import AddressBookService from "../../components/services/addressbook-service";
-import { v1 as uuidv1 } from 'uuid';
-var addressbook = new AddressBookService();
 
 const AddressBookForm = (props) => {
-    const navigate = useNavigate();
     let initialValue = {
         name: '',
         phoneNumber: '',
@@ -30,6 +27,8 @@ const AddressBookForm = (props) => {
     }
 
     const [formValue, setForm] = useState(initialValue);
+    const [displayMeassage, setDisplayMessage]=useState("");
+    const addressbook = new AddressBookService();
 
     const changeValue = (event) => {
         setForm({ ...formValue, [event.target.name]: event.target.value })
@@ -47,12 +46,12 @@ const AddressBookForm = (props) => {
         }
         const regName = /^[A-Z]{1}[A-Za-z]{2,}([\\s]?([a-zA-Z]{3,}))*$/
         if (formValue.name.length < 1 || !regName.test(formValue.name)) {
-            error.name = 'name is wrong'
+            error.name = 'name is required'
             isError = true;
         }
         const regPhoneNumber = /^[+]?([0-9]{2})?[789]{1}[0-9]{9}$/
         if (formValue.phoneNumber.length < 1 || !regPhoneNumber.test(formValue.phoneNumber)) {
-            error.phoneNumber = 'phone Number is wrong'
+            error.phoneNumber = 'phone Number is required'
             isError = true;
         }
         const regAddress = /^[a-zA-Z0-9]{3,}([\\s]?[a-zA-Z0-9]{3,})*$/
@@ -94,15 +93,22 @@ const AddressBookForm = (props) => {
             city: formValue.city,
             state: formValue.state,
             zipCode: formValue.zipCode,
-            id: uuidv1(),
+            id: formValue.id
         }
         console.log(object)
         addressbook.addAddressBook(object).then(data => {
-            console.log("data added");
+            setDisplayMessage("Successfully added user");
+                  setTimeout(()=>{
+                      setDisplayMessage("");
+                  },5000);
         }).catch(err => {
-            console.log("err while add", err);
+            console.log("Error to add user");
+                  setDisplayMessage("Error to add user");
+                  setTimeout(()=>{
+                    setDisplayMessage("");
+                },5000);
         })
-        navigate('/home')
+       
     }
 
     const reset = () => {
@@ -194,6 +200,7 @@ const AddressBookForm = (props) => {
                                 <option value="Yanam">Yanam</option>
                                 <option value="Zunheboto">Zunheboto</option>
                             </select>
+                            <div className="error" id="zip-error">{formValue.error.city}</div>
                         </div>
                         <div className="state-row">
                             <label className="label text" htmlFor="state">State</label>
@@ -250,9 +257,12 @@ const AddressBookForm = (props) => {
                             <button type="submit" class="button submitButton" id="submitButton" onClick={save}>
                                 Submit
                             </button>
-                            <button type="reset" className="resetButton button" id="resetButton" onclick="reset()"
-                                >Reset</button>
+                            <button type="reset" className="resetButton button" id="resetButton" onclick={reset}>
+                                Reset</button>
                         </div>
+                    </div>
+                    <div className="displaymessage">
+                    {displayMeassage}
                     </div>
                 </form>
             </div>

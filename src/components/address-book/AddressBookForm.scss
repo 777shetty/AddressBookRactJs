@@ -164,12 +164,12 @@ body {
   }
 
   .buttonParent{
-    display:flex;
-    margin-bottom: 10px;
-    justify-content: space-between;
-    margin-top: 20px;
-    padding-left: 65%;
-    margin-bottom: 30px;
+    display: flex;
+            padding: 0px 100px;
+            flex-direction: row;
+            margin-bottom: 60px;
+            justify-content: flex-end;
+            margin-top: 20px;
 }
 .button{
     height: 125%;
@@ -194,16 +194,16 @@ button:disabled {
   opacity: 0.5;
 }
   .submitButton {
-    margin-right: 30px;
-    background-color: lightgreen;
+    margin-left: 100px;
+    background-color: rgb(194, 201, 194);
     color: black;
   }
   .resetButton{
-    margin-right: 50px;
-    background-color: lightskyblue;
+    margin-right: 300px;
+    background-color: rgb(194, 201, 194);
   }
   
-  error-output {
+  .error {
     margin-left: 10px;
     font-size: 12px;
     font-style: italic;
